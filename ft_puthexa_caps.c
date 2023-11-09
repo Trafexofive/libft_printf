@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_puthexa_caps.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlamkadm <mlamkadm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 12:51:35 by mlamkadm          #+#    #+#             */
-/*   Updated: 2022/12/15 21:35:10 by mlamkadm         ###   ########.fr       */
+/*   Created: 2023/06/05 20:12:48 by mlamkadm          #+#    #+#             */
+/*   Updated: 2023/06/06 22:19:17 by mlamkadm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include "ft_printf.h"
 
-# include "libft/libft.h"
+void	ft_puthexa_caps(unsigned long n, int *count)
+{
+	const char	*base_caps;
 
-int	ft_putchar(int c);
-int	ft_putstr(const char *s);
-int	ft_putnbr(int n);
-int	ft_putnbr_unsigned(unsigned int n);
-int	ft_puthexa(int n);
-
-#endif
+	base_caps = "0123456789ABCDEF";
+	if (n > 15)
+	{
+		ft_puthexa_caps(n / 16, count);
+		ft_puthexa_caps(n % 16, count);
+	}
+	if (n <= 15)
+		ft_putchar(base_caps[n % 16], count);
+}

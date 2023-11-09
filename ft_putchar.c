@@ -6,14 +6,14 @@
 /*   By: mlamkadm <mlamkadm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:32:26 by mlamkadm          #+#    #+#             */
-/*   Updated: 2022/12/14 22:44:23 by mlamkadm         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:29:44 by mlamkadm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_putchar(int c)
+void	ft_putchar(int c, int *count)
 {
 	write(1, &c, 1);
-	return (1);
+	*count = *count + 1;
 }

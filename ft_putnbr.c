@@ -6,33 +6,27 @@
 /*   By: mlamkadm <mlamkadm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:58:25 by mlamkadm          #+#    #+#             */
-/*   Updated: 2022/12/15 16:51:09 by mlamkadm         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:17:54 by mlamkadm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_putnbr(int n)
+void	ft_putnbr(int n, int *count)
 {
-	int	count;
+	long	nbr;
 
-	count = 0;
-	if (n < 0)
+	nbr = n;
+	if (nbr < 0)
 	{
-		ft_putchar('-');
-		n = n * -1;
-		count++;
+		ft_putchar('-', count);
+		nbr *= -1;
 	}
-	if (n == -2147483648)
-		ft_putstr("2147483648");
-		count = 11;
-	if (n > 9)
+	if (nbr > 9)
 	{
-		ft_putnbr(n / 10);
-		ft_putnbr(n % 10);
+		ft_putnbr(nbr / 10, count);
+		ft_putchar(nbr % 10 + 48, count);
 	}
-	if (n >= 0 && n <= 9)
-		ft_putchar(n + 48);
-		count++;
-	return (count);
+	if (nbr >= 0 && nbr <= 9)
+		ft_putchar(nbr + 48, count);
 }

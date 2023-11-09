@@ -6,26 +6,19 @@
 /*   By: mlamkadm <mlamkadm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:08:41 by mlamkadm          #+#    #+#             */
-/*   Updated: 2022/12/15 16:52:01 by mlamkadm         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:30:03 by mlamkadm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_putnbr_unsigned(unsigned int n)
+void	ft_putnbr_unsigned(unsigned int n, int *count)
 {
-	int	count;
-
-	count = 0;
 	if (n > 9)
 	{
-		ft_putnbr(n / 10);
-		ft_putnbr(n % 10);
+		ft_putnbr_unsigned(n / 10, count);
+		ft_putchar(n % 10 + 48, count);
 	}
-	if (n >= 0 && n <= 9)
-	{
-		ft_putchar(n + 48);
-		count++;
-	}
-	return (count);
+	else
+		ft_putchar(n % 10 + 48, count);
 }

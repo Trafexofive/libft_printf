@@ -6,85 +6,60 @@
 /*   By: mlamkadm <mlamkadm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 11:56:57 by mlamkadm          #+#    #+#             */
-/*   Updated: 2022/12/15 16:52:34 by mlamkadm         ###   ########.fr       */
+/*   Updated: 2023/06/07 01:46:59 by mlamkadm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-
-static int	ft_check_percent(int c)
+static void	ft_specifier(va_list list, int c, int *count)
 {
+	if (c == '\n')
+		ft_putchar(c, count);
 	if (c == '%')
-		return (1);
-	return (0);
+		ft_putchar('%', count);
+	else if (c == 'c')
+		ft_putchar(va_arg(list, int), count);
+	else if (c == 's')
+		ft_putstr(va_arg(list, char *), count);
+	else if (c == 'd' || c == 'i')
+		ft_putnbr(va_arg(list, int), count);
+	else if (c == 'u')
+		ft_putnbr_unsigned(va_arg(list, unsigned int), count);
+	else if (c == 'x')
+		ft_puthexa(va_arg(list, unsigned int), count);
+	else if (c == 'X')
+		ft_puthexa_caps(va_arg(list, unsigned int), count);
+	else if (c == 'p')
+	{
+		ft_putstr("0x", count);
+		ft_puthexa(va_arg(list, unsigned long), count);
+	}
 }
-
-static int	ft_check_specifier(int c)
-{
-	if (c == 'c')
-		return (1);
-	if (c == 's')
-		return (2);
-	if (c == 'p')
-		return (3);
-	if (c == 'd')
-		return (4);
-	if (c == 'i')
-		return (5);
-	if (c == 'u')
-		return (6);
-	if (c == 'x')
-		return (7);
-	if (c == 'X')
-		return (8);
-	if (c == '%')
-		return (9);
-	return (0);
-}
-
 
 int	ft_printf(const char *format, ...)
 {
 	int		i;
 	int		count;
-	va_list	args;
+	va_list	list;
 
 	i = 0;
 	count = 0;
-	va_start(args, format);
-
+	va_start(list, format);
 	while (format[i])
 	{
-		if (ft_check_percent(format[i]) == 1)
+		if (write(1, 0, 0) == -1)
+			return (-1);
+		if (format[i] == '%')
 		{
 			i++;
-			if (ft_check_specifier(format[i]) == 1)
-				count = count + ft_putchar(va_arg(args, int));
-			else if (ft_check_specifier(format[i]) == 2)
-				count = count + ft_putstr(va_arg(args, const char *));
-			else if (ft_check_specifier(format[i]) == 4)
-				count = count + ft_putnbr(va_arg(args, int));
-			else if (ft_check_specifier(format[i]) == 5)
-				count = count + ft_putnbr(va_arg(args, int));
-			else if (ft_check_specifier(format[i]) == 6)
-				count = count + ft_putnbr_unsigned(va_arg(args, unsigned int));
-				
+			if (format[i] == '\0')
+				break ;
+			ft_specifier(list, format[i], &count);
 		}
-		else if(ft_check_percent(format[i]) == 0)
-			count = count + ft_putchar(format[i]);
+		else
+			ft_putchar(format[i], &count);
 		i++;
 	}
-	va_end(args);
 	return (count);
 }
-
-
-// int main(void)
-// {
-// 	// char	str[] = "hello_world";
-// 	// char	str1[] = "hello_world1";
-
-// 	// ft_printf("My printf:\nnum:%d %s %s", 1234, str, str1);
-// 	printf("\nSystem printf:\nnum:%d", 1234);
-// }

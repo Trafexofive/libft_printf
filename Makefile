@@ -6,7 +6,7 @@
 #    By: mlamkadm <mlamkadm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 22:13:31 by mlamkadm          #+#    #+#              #
-#    Updated: 2022/12/14 22:20:38 by mlamkadm         ###   ########.fr        #
+#    Updated: 2023/06/06 22:17:49 by mlamkadm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ CC = cc
 
 NAME = libftprintf.a
 
-SRC = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_unsigned.c\
+SRC = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_unsigned.c ft_puthexa.c ft_puthexa_caps.c\
 
 OBJ = $(SRC:.c=.o)
 
-HEADER = libftprintf.h
+HEADER = ft_printf.h
 
 AR = ar -rcs
 
